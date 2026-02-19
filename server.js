@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 bot.start((ctx) => {
     // Render ကပေးတဲ့ URL ကို ဒီမှာ အစားထိုးရန် (ဥပမာ- https://paycoin-mm.onrender.com)
-    const gameUrl = "https://paycoin-mm.onrender.com"; 
+    const gameUrl = "https://testingpz.onrender.com"; 
 
     ctx.reply(`မင်္ဂလာပါ ${ctx.from.first_name}!\n\nPayCoin MM ဂိမ်းကို အောက်ကခလုတ်နှိပ်ပြီး ဆော့လို့ရပါပြီဗျာ။`, {
         reply_markup: {
