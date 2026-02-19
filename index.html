@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayCoin MM</title>
+    <script src="https://sad.adsgram.ai/js/adman.js"></script>
+    <style>
+        body { background: #0f172a; color: white; text-align: center; font-family: sans-serif; padding: 20px; }
+        .card { background: #1e293b; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .balance { font-size: 32px; color: #fbbf24; margin: 15px 0; font-weight: bold; }
+        .btn { background: #fbbf24; color: #000; border: none; padding: 15px 30px; border-radius: 10px; font-weight: bold; width: 100%; font-size: 18px; cursor: pointer; }
+        .btn:disabled { background: #4b5563; color: #9ca3af; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>PayCoin MM</h2>
+        <div class="balance">🪙 <span id="bal">0</span></div>
+        <button id="adBtn" class="btn" onclick="runAd()">Watch Video</button>
+        <p id="status">ဗီဒီယိုကြည့်ပြီး Point ရယူပါ</p>
+    </div>
+    <script>
+        let balance = 0;
+        let cooldown = false;
+        const AdController = window.Adsgram.init({ blockId: "int-23301" });
+
+        function runAd() {
+            if (cooldown) return;
+            AdController.show().then((result) => {
+                if (result.done) {
+                    balance += 50;
+                    document.getElementById('bal').innerText = balance;
+                    startTimer(180);
+                }
+            }).catch(() => { alert("Error loading ad"); });
+        }
+
+        function startTimer(seconds) {
+            cooldown = true;
+            let btn = document.getElementById('adBtn');
+            let interval = setInterval(() => {
+                let mins = Math.floor(seconds / 60);
+                let secs = seconds % 60;
+                document.getElementById('status').innerText = Next ad in ${mins}:${secs < 10 ? '0' : ''}${secs};
+                btn.disabled = true;
+                seconds--;
+                if (seconds < 0) {
+                    clearInterval(interval);
+                    cooldown = false;
+                    btn.disabled = false;
+                    document.getElementById('status').innerText = "Ready!";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
